@@ -1,10 +1,10 @@
 package org.catalog.repository.memory;
 
-import org.catalog.repository.MarkRepository;
+import org.catalog.repository.GradeRepository;
 
 import java.time.LocalDate;
 
-public class MarkMemoryRepository implements MarkRepository {
+public class GradeMemoryRepository implements GradeRepository {
     int idMark;
     int idStudent;
     int idDisciplina;

@@ -1,8 +1,8 @@
-package org.catalog.model;
+package org.catalog.service;
 
 import java.time.LocalDate;
 
-public class Mark {
+public class GradeService {
     int idMark;
     int idStudent;
     int idDisciplina;

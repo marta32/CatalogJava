@@ -1,4 +1,4 @@
 package org.catalog.repository;
 
-public interface MarkRepository {
+public interface GradeRepository {
 }
