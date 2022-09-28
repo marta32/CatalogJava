@@ -17,12 +17,6 @@ public class StudentService {
         repo.add(student);
     }
 
-    public void display() {
-        for (Student s : repo.read()) {
-            System.out.println(s);
-        }
-    }
-
     public void deleteById(int id) {
         repo.delete(id);
     }
@@ -39,6 +33,9 @@ public class StudentService {
         repo.update(student);
     }
 
-
-
+    public void display() {
+        for (Student s : repo.read()) {
+            System.out.println(s);
+        }
+    }
 }

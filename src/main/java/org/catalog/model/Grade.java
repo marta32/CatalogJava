@@ -3,10 +3,10 @@ package org.catalog.model;
 import java.time.LocalDate;
 
 public class Grade {
-    int idMark;
+    int id;
     int idStudent;
-    int idDisciplina;
-    String mark;
+    int idSubject;
+    int mark;
     LocalDate dateMark;
 
 }
