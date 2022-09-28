@@ -9,7 +9,6 @@ import java.util.List;
 public class StudentMemoryRepository implements StudentRepository {
 
     private static int counter = 1;
-
     private final List<Student> repo = new ArrayList<>();
 
     @Override

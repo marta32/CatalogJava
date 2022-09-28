@@ -1,16 +1,20 @@
 package org.catalog;
 
+import org.catalog.repository.GradeRepository;
 import org.catalog.repository.StudentRepository;
 import org.catalog.repository.SubjectRepository;
 import org.catalog.repository.TeacherRepository;
+import org.catalog.repository.memory.GradeMemoryRepository;
 import org.catalog.repository.memory.StudentMemoryRepository;
 import org.catalog.repository.memory.SubjectMemoryRepository;
 import org.catalog.repository.memory.TeacherMemoryRepository;
+import org.catalog.service.GradeService;
 import org.catalog.service.StudentService;
 import org.catalog.service.SubjectService;
 import org.catalog.service.TeacherService;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -23,6 +27,9 @@ public class Main {
 
     private static SubjectRepository subjectRepository = new SubjectMemoryRepository();
     private static SubjectService subjectService = new SubjectService(subjectRepository);
+
+    private static GradeRepository gradeRepository = new GradeMemoryRepository();
+    private static GradeService gradeService = new GradeService(gradeRepository);
 
     public static void menu() {
         System.out.println("========= MENU =========");
@@ -38,7 +45,7 @@ public class Main {
         System.out.println("Tap 9 - Update teacher's name");
         System.out.println("Tap 10 - Update student's name");
         System.out.println("Tap 11 - Update subject's name");
-        System.out.println("Tap 12 - Update mark");
+        System.out.println("Tap 12 - Update grade");
         System.out.println("Tap 13 - Update teacher's birthday date");
         System.out.println("Tap 14 - Update student's birthday date");
         System.out.println("Tap 15 - Update subject's teacher id");
@@ -52,7 +59,7 @@ public class Main {
     public static void options() {
 
         Scanner cin = new Scanner(System.in);
-        System.out.println("Tap your option ");
+        System.out.print("Tap your option ");
         int op = cin.nextInt();
 
         switch (op) {
@@ -60,14 +67,14 @@ public class Main {
                 return;
 
             case 1: {
-                System.out.println("Name: ");
+                System.out.print("Name: ");
                 String name = cin.next();
-                System.out.println("Tape birthday date");
-                System.out.println("Year: ");
+                System.out.println("Tape birth date");
+                System.out.print("Year: ");
                 int year = cin.nextInt();
-                System.out.println("Month: ");
+                System.out.print("Month: ");
                 int month = cin.nextInt();
-                System.out.println("Day: ");
+                System.out.print("Day: ");
                 int day = cin.nextInt();
                 teacherService.add(name, LocalDate.of(year, month, day));
                 options();
@@ -75,14 +82,14 @@ public class Main {
             }
 
             case 2: {
-                System.out.println("Name: ");
+                System.out.print("Name: ");
                 String name = cin.next();
-                System.out.println("Tape birthday date");
-                System.out.println("Year: ");
+                System.out.println("Tape birth date");
+                System.out.print("Year: ");
                 int year = cin.nextInt();
-                System.out.println("Month: ");
+                System.out.print("Month: ");
                 int month = cin.nextInt();
-                System.out.println("Day: ");
+                System.out.print("Day: ");
                 int day = cin.nextInt();
                 studentService.add(name, LocalDate.of(year, month, day));
                 options();
@@ -90,17 +97,30 @@ public class Main {
             }
 
             case 3: {
-                System.out.println("Name: ");
+                System.out.print("Name: ");
                 String name = cin.next();
-                System.out.println("Type id's teacher");
+                System.out.print("Teacher's id: ");
                 int idTeacher = cin.nextInt();
                 subjectService.add(name, idTeacher);
                 options();
                 break;
             }
 
+            case 4: {
+                System.out.print("Student's id: ");
+                int idStudent = cin.nextInt();
+                System.out.print("Teacher's id: ");
+                int idTeacher = cin.nextInt();
+                System.out.print("Mark: ");
+                int mark = cin.nextInt();
+                LocalDate date = LocalDate.now();
+                gradeService.add(idStudent, idTeacher, mark, date);
+                options();
+                break;
+            }
+
             case 5: {
-                System.out.println("Tap teacher id ");
+                System.out.print("Teacher's id: ");
                 int id = cin.nextInt();
                 teacherService.deleteById(id);
                 options();
@@ -108,7 +128,7 @@ public class Main {
             }
 
             case 6: {
-                System.out.println("Tap student id ");
+                System.out.print("Student's id: ");
                 int id = cin.nextInt();
                 studentService.deleteById(id);
                 options();
@@ -116,17 +136,25 @@ public class Main {
             }
 
             case 7: {
-                System.out.println("Tap subject id ");
+                System.out.print("Subject's id: ");
                 int id = cin.nextInt();
                 subjectService.deleteById(id);
                 options();
                 break;
             }
 
-            case 9: {
-                System.out.println("Tap teacher id ");
+            case 8: {
+                System.out.print("Grade's id: ");
                 int id = cin.nextInt();
-                System.out.println("New name ");
+                gradeService.delete(id);
+                options();
+                break;
+            }
+
+            case 9: {
+                System.out.print("Teacher's id: ");
+                int id = cin.nextInt();
+                System.out.print("New name: ");
                 String name = cin.next();
                 teacherService.update(id, name);
                 options();
@@ -134,9 +162,9 @@ public class Main {
             }
 
             case 10: {
-                System.out.println("Tap student id ");
+                System.out.print("Student's id: ");
                 int id = cin.nextInt();
-                System.out.println("New name ");
+                System.out.print("New name: ");
                 String name = cin.next();
                 studentService.update(id, name);
                 options();
@@ -144,23 +172,33 @@ public class Main {
             }
 
             case 11: {
-                System.out.println("Tap subject id ");
+                System.out.print("Subject's id: ");
                 int id = cin.nextInt();
-                System.out.println("New name ");
+                System.out.print("New name: ");
                 String name = cin.next();
                 subjectService.update(id, name);
                 options();
                 break;
             }
 
-            case 13: {
-                System.out.println("Tap teacher id ");
+            case 12: {
+                System.out.print("Grade's id: ");
                 int id = cin.nextInt();
-                System.out.println("New year ");
+                System.out.print("New grade: ");
+                int mark = cin.nextInt();
+                gradeService.update(id, mark);
+                options();
+                break;
+            }
+
+            case 13: {
+                System.out.print("Teacher's id: ");
+                int id = cin.nextInt();
+                System.out.print("New year: ");
                 int year = cin.nextInt();
-                System.out.println("New month: ");
+                System.out.print("New month: ");
                 int month = cin.nextInt();
-                System.out.println("New day: ");
+                System.out.print("New day: ");
                 int day = cin.nextInt();
                 teacherService.update(id, LocalDate.of(year, month, day));
                 options();
@@ -168,13 +206,13 @@ public class Main {
             }
 
             case 14: {
-                System.out.println("Tap student id ");
+                System.out.print("Student's id: ");
                 int id = cin.nextInt();
-                System.out.println("New year ");
+                System.out.print("New year: ");
                 int year = cin.nextInt();
-                System.out.println("New month: ");
+                System.out.print("New month: ");
                 int month = cin.nextInt();
-                System.out.println("New day: ");
+                System.out.print("New day: ");
                 int day = cin.nextInt();
                 studentService.update(id, LocalDate.of(year, month, day));
                 options();
@@ -182,11 +220,26 @@ public class Main {
             }
 
             case 15: {
-                System.out.println("Tap subject id ");
+                System.out.print("Subject's id: ");
                 int id = cin.nextInt();
-                System.out.println("New teacher id");
+                System.out.print("New teacher id: ");
                 int idTeacher = cin.nextInt();
                 subjectService.update(id, idTeacher);
+                options();
+                break;
+            }
+
+            case 16: {
+                System.out.print("Grade's id: ");
+                int id = cin.nextInt();
+                System.out.print("Tap new date");
+                System.out.println("Year: ");
+                int year = cin.nextInt();
+                System.out.print("Month: ");
+                int month = cin.nextInt();
+                System.out.print("Day: ");
+                int day = cin.nextInt();
+                gradeService.update(id, LocalDate.of(year, month, day));
                 options();
                 break;
             }
@@ -197,7 +250,6 @@ public class Main {
                 options();
                 break;
             }
-
             case 18: {
                 System.out.println("===== STUDENTS'S LIST =====");
                 studentService.display();
@@ -210,48 +262,19 @@ public class Main {
                 options();
                 break;
             }
-
+            case 20: {
+                System.out.println("===== GRADE'S LIST =====");
+                gradeService.display();
+                options();
+                break;
+            }
         }
     }
 
     public static void main(String[] args) {
 
-//        studentService.add("Marta", LocalDate.of(1996, 2, 23));
-//        studentService.add("Sorana", LocalDate.of(1999, 3, 2));
-//        studentService.display();
-//        studentService.deleteById(1);
-//        studentService.display();
-//        studentService.update(2, "Teofana");
-//        studentService.display();
-//        studentService.update(2, LocalDate.of(1998,4,11));
-//        studentService.display();
-
-//        teacherService.add("Marta", LocalDate.of(1996,2,23));
-//        teacherService.add("Pavelida", LocalDate.of(1996,7,29));
-//        teacherService.add("Bella", LocalDate.of(1995,12,9));
-//        teacherService.display();
-//        teacherService.deleteById(1);
-//        teacherService.display();
-//        teacherService.update(2,"Maria");
-//        teacherService.display();
-//        teacherService.update(2,LocalDate.of(1971,5,10));
-//        teacherService.display();
-
-//        subjectService.add("Matematica", 3);
-//        subjectService.add("Informatica", 10);
-//        subjectService.add("Limba engleza", 7);
-//        subjectService.add("Limba romana", 1);
-//        subjectService.display();
-//        subjectService.deleteById(1);
-//        subjectService.display();
-//        subjectService.update(2,"Fizica");
-//        subjectService.display();
-//        subjectService.update(2,12);
-//        subjectService.display();
-
         menu();
         options();
-
 
     }
 }
