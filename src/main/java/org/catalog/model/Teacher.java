@@ -8,10 +8,16 @@ public class Teacher {
     private LocalDate birthday;
 
     public Teacher(String name, LocalDate birthday) {
+        this.name = name;
+        this.birthday = birthday;
+    }
+
+    public Teacher(int id, String name, LocalDate birthday) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
     }
+
 
     public int getId() {
         return id;
@@ -45,4 +51,17 @@ public class Teacher {
                 ", birthday=" + birthday +
                 '}';
     }
+
+    public String serialize() {
+        return id + "," + name + "," + birthday + "\n";
+    }
+
+    public static Teacher deserialize(String serializedTeacher) {
+        String[] s = serializedTeacher.split(",");
+        int id = Integer.parseInt(s[0]);
+        String name = s[1];
+        LocalDate birthday = LocalDate.parse(s[2]);
+        return new Teacher(id, name, birthday);
+    }
+
 }
