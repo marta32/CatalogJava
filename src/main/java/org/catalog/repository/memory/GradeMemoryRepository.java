@@ -55,6 +55,7 @@ public class GradeMemoryRepository implements GradeRepository {
             if (repo.get(i).getId() == id) {
                 return repo.get(i);
             }
+            i++;
         }
         return null;
     }

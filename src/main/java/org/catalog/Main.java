@@ -4,6 +4,7 @@ import org.catalog.repository.GradeRepository;
 import org.catalog.repository.StudentRepository;
 import org.catalog.repository.SubjectRepository;
 import org.catalog.repository.TeacherRepository;
+import org.catalog.repository.file.StudentFileRepository;
 import org.catalog.repository.memory.GradeMemoryRepository;
 import org.catalog.repository.memory.StudentMemoryRepository;
 import org.catalog.repository.memory.SubjectMemoryRepository;
@@ -14,12 +15,10 @@ import org.catalog.service.SubjectService;
 import org.catalog.service.TeacherService;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
-
-    private static StudentRepository studentRepository = new StudentMemoryRepository();
+    private static StudentRepository studentRepository = new StudentFileRepository();
     private static StudentService studentService = new StudentService(studentRepository);
 
     private static TeacherRepository teacherRepository = new TeacherMemoryRepository();
@@ -46,8 +45,8 @@ public class Main {
         System.out.println("Tap 10 - Update student's name");
         System.out.println("Tap 11 - Update subject's name");
         System.out.println("Tap 12 - Update grade");
-        System.out.println("Tap 13 - Update teacher's birthday date");
-        System.out.println("Tap 14 - Update student's birthday date");
+        System.out.println("Tap 13 - Update teacher's birth day");
+        System.out.println("Tap 14 - Update student's birth day");
         System.out.println("Tap 15 - Update subject's teacher id");
         System.out.println("Tap 16 - Update grade's date");
         System.out.println("Tap 17 - Display teachers");
@@ -59,6 +58,7 @@ public class Main {
     public static void options() {
 
         Scanner cin = new Scanner(System.in);
+        cin.useDelimiter("\n");
         System.out.print("Tap your option ");
         int op = cin.nextInt();
 

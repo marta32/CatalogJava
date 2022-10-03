@@ -1,6 +1,7 @@
 package org.catalog.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Student {
     private int id;
@@ -12,6 +13,12 @@ public class Student {
         this.birthday = birthday;
     }
 
+    public Student(int id, String name, LocalDate birthday) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+    }
+
     public int getId() {
         return this.id;
     }
@@ -19,7 +26,6 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -44,5 +50,17 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", birthday=" + birthday +
                 '}';
+    }
+
+    public String serialize() {
+        return id + "," + name + "," + birthday + "\n";
+    }
+
+    public static Student deserialize(String serializedStudent) {
+        String[] s = serializedStudent.split(",");
+        int id = Integer.parseInt(s[0]);
+        String name = s[1];
+        LocalDate birthday = LocalDate.parse(s[2]);
+        return new Student(id, name, birthday);
     }
 }

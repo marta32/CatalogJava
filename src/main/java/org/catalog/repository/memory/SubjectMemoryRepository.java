@@ -56,6 +56,7 @@ public class SubjectMemoryRepository implements SubjectRepository {
             if (repo.get(i).getId() == id) {
                 return repo.get(i);
             }
+            i++;
         }
         return null;
     }
