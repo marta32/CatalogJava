@@ -1,11 +1,19 @@
 package org.catalog.model;
 
+import java.time.LocalDate;
+
 public class Subject {
     private int id;
     private String name;
     private int idTeacher;
 
     public Subject(String name, int idTeacher) {
+        this.name = name;
+        this.idTeacher = idTeacher;
+    }
+
+    public Subject(int id, String name, int idTeacher) {
+        this.id = id;
         this.name = name;
         this.idTeacher = idTeacher;
     }
@@ -41,5 +49,17 @@ public class Subject {
                 ", name='" + name + '\'' +
                 ", idTeacher=" + idTeacher +
                 '}';
+    }
+
+    public String serialize() {
+        return id + "," + name + "," + idTeacher+ "\n";
+    }
+
+    public static Subject deserialize (String serializedSubject) {
+        String[] s = serializedSubject.split(",");
+        int id = Integer.parseInt(s[0]);
+        String name = s[1];
+        int idt = Integer.parseInt(s[2]);
+        return new Subject(id, name, idt);
     }
 }

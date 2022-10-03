@@ -5,6 +5,7 @@ import org.catalog.repository.StudentRepository;
 import org.catalog.repository.SubjectRepository;
 import org.catalog.repository.TeacherRepository;
 import org.catalog.repository.file.StudentFileRepository;
+import org.catalog.repository.file.SubjectFileRepository;
 import org.catalog.repository.file.TeacherFileRepository;
 import org.catalog.repository.memory.GradeMemoryRepository;
 import org.catalog.repository.memory.StudentMemoryRepository;
@@ -25,7 +26,7 @@ public class Main {
     private static TeacherRepository teacherRepository = new TeacherFileRepository();
     private static TeacherService teacherService = new TeacherService(teacherRepository);
 
-    private static SubjectRepository subjectRepository = new SubjectMemoryRepository();
+    private static SubjectRepository subjectRepository = new SubjectFileRepository();
     private static SubjectService subjectService = new SubjectService(subjectRepository);
 
     private static GradeRepository gradeRepository = new GradeMemoryRepository();
