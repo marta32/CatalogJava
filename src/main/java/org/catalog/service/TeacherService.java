@@ -14,26 +14,27 @@ public class TeacherService {
 
     public void add(String name, LocalDate birthday) {
         Teacher teacher = new Teacher(name, birthday);
+        Validator.validate(teacher);
         repo.add(teacher);
     }
 
     public void display() {
-        for (Teacher t : repo.read()){
+        for (Teacher t : repo.read()) {
             System.out.println(t);
         }
     }
 
-    public void deleteById(int id){
+    public void deleteById(int id) {
         repo.delete(id);
     }
 
-    public void update(int id, String name){
+    public void update(int id, String name) {
         Teacher teacher = repo.readById(id);
         teacher.setName(name);
         repo.update(teacher);
     }
 
-    public void update(int id, LocalDate birthday){
+    public void update(int id, LocalDate birthday) {
         Teacher teacher = repo.readById(id);
         teacher.setBirthday(birthday);
         repo.update(teacher);
