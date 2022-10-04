@@ -1,7 +1,6 @@
 package org.catalog;
 
-import org.catalog.exceptions.InvalidDateException;
-import org.catalog.exceptions.InvalidNameException;
+import org.catalog.exceptions.*;
 import org.catalog.repository.GradeRepository;
 import org.catalog.repository.StudentRepository;
 import org.catalog.repository.SubjectRepository;
@@ -249,7 +248,8 @@ public class Main {
                     break;
                 }
             }
-        } catch (InvalidNameException | InvalidDateException exception) {
+        } catch (InvalidNameException | InvalidDateException | InvalidMarkException |
+                 InvalidStudentIdException | InvalidTeacherIdException |InvalidSubjectIdException exception) {
             System.out.println(exception.getMessage());
         }
         if (op != 0) {
