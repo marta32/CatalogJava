@@ -66,13 +66,7 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" +
-                "id=" + id +
-                ", idStudent=" + idStudent +
-                ", idSubject=" + idSubject +
-                ", mark=" + mark +
-                ", dateMark=" + dateMark +
-                '}';
+        return "Grade{" + "id=" + id + ", idStudent=" + idStudent + ", idSubject=" + idSubject + ", mark=" + mark + ", dateMark=" + dateMark + '}';
     }
 
     public String serialize() {

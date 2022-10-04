@@ -1,6 +1,6 @@
 package org.catalog;
 
-import org.catalog.exceptions.InvalidBirthdayException;
+import org.catalog.exceptions.InvalidDateException;
 import org.catalog.exceptions.InvalidNameException;
 import org.catalog.repository.GradeRepository;
 import org.catalog.repository.StudentRepository;
@@ -10,10 +10,6 @@ import org.catalog.repository.file.GradeFileRepository;
 import org.catalog.repository.file.StudentFileRepository;
 import org.catalog.repository.file.SubjectFileRepository;
 import org.catalog.repository.file.TeacherFileRepository;
-import org.catalog.repository.memory.GradeMemoryRepository;
-import org.catalog.repository.memory.StudentMemoryRepository;
-import org.catalog.repository.memory.SubjectMemoryRepository;
-import org.catalog.repository.memory.TeacherMemoryRepository;
 import org.catalog.service.GradeService;
 import org.catalog.service.StudentService;
 import org.catalog.service.SubjectService;
@@ -30,10 +26,10 @@ public class Main {
     private static TeacherService teacherService = new TeacherService(teacherRepository);
 
     private static SubjectRepository subjectRepository = new SubjectFileRepository();
-    private static SubjectService subjectService = new SubjectService(subjectRepository);
+    private static SubjectService subjectService = new SubjectService(subjectRepository,teacherRepository);
 
     private static GradeRepository gradeRepository = new GradeFileRepository();
-    private static GradeService gradeService = new GradeService(gradeRepository);
+    private static GradeService gradeService = new GradeService(gradeRepository,studentRepository,subjectRepository);
 
     public static void menu() {
         System.out.println("========= MENU =========");
@@ -253,7 +249,7 @@ public class Main {
                     break;
                 }
             }
-        } catch (InvalidNameException | InvalidBirthdayException exception) {
+        } catch (InvalidNameException | InvalidDateException exception) {
             System.out.println(exception.getMessage());
         }
         if (op != 0) {

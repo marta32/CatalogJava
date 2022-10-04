@@ -2,6 +2,7 @@ package org.catalog.service;
 
 import org.catalog.model.Teacher;
 import org.catalog.repository.TeacherRepository;
+import org.catalog.validator.TeacherValidator;
 
 import java.time.LocalDate;
 
@@ -14,7 +15,8 @@ public class TeacherService {
 
     public void add(String name, LocalDate birthday) {
         Teacher teacher = new Teacher(name, birthday);
-        Validator.validate(teacher);
+        TeacherValidator teacherValidator =new TeacherValidator();
+        teacherValidator.validate(teacher);
         repo.add(teacher);
     }
 

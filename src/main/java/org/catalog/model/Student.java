@@ -1,7 +1,6 @@
 package org.catalog.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Student {
     private int id;
@@ -45,11 +44,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthday=" + birthday +
-                '}';
+        return "Student{" + "id=" + id + ", name='" + name + '\'' + ", birthday=" + birthday + '}';
     }
 
     public String serialize() {

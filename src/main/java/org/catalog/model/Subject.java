@@ -1,7 +1,5 @@
 package org.catalog.model;
 
-import java.time.LocalDate;
-
 public class Subject {
     private int id;
     private String name;
