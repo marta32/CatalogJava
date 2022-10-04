@@ -14,6 +14,7 @@ public class StudentService {
 
     public void add(String name, LocalDate birthday) {
         Student student = new Student(name, birthday);
+        Validator.validate(student);
         repo.add(student);
     }
 

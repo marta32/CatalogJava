@@ -16,6 +16,14 @@ public class Grade {
         this.dateMark = dateMark;
     }
 
+    public Grade(int id, int idStudent, int idSubject, int mark, LocalDate dateMark) {
+        this.id = id;
+        this.idStudent = idStudent;
+        this.idSubject = idSubject;
+        this.mark = mark;
+        this.dateMark = dateMark;
+    }
+
     public int getId() {
         return id;
     }
@@ -65,5 +73,19 @@ public class Grade {
                 ", mark=" + mark +
                 ", dateMark=" + dateMark +
                 '}';
+    }
+
+    public String serialize() {
+        return id + "," + idStudent + "," + idSubject + "," + mark + "," + dateMark + "\n";
+    }
+
+    public static Grade deserialize(String serializedGrade) {
+        String[] s = serializedGrade.split(",");
+        int id = Integer.parseInt(s[0]);
+        int idStud = Integer.parseInt(s[1]);
+        int idSub = Integer.parseInt(s[2]);
+        int mark = Integer.parseInt(s[3]);
+        LocalDate birthday = LocalDate.parse(s[4]);
+        return new Grade(id, idStud, idSub, mark, birthday);
     }
 }
