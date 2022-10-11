@@ -66,30 +66,34 @@ public class Main {
             switch (op) {
 
                 case 1: {
-                    System.out.print("Name: ");
-                    String name = cin.next();
-                    System.out.println("Tape birth date");
+                    System.out.print("First name: ");
+                    String first_name = cin.next();
+                    System.out.print("Last name: ");
+                    String last_name = cin.next();
+                    System.out.println("Tape the date of birth!");
                     System.out.print("Year: ");
                     int year = cin.nextInt();
                     System.out.print("Month: ");
                     int month = cin.nextInt();
                     System.out.print("Day: ");
                     int day = cin.nextInt();
-                    teacherService.add(name, LocalDate.of(year, month, day));
+                    teacherService.add(first_name,last_name, LocalDate.of(year, month, day));
                     break;
                 }
 
                 case 2: {
-                    System.out.print("Name: ");
-                    String name = cin.next();
-                    System.out.println("Tape birth date");
+                    System.out.print("First name: ");
+                    String first_name = cin.next();
+                    System.out.print("Last name: ");
+                    String last_name = cin.next();
+                    System.out.println("Tape the date of birth!");
                     System.out.print("Year: ");
                     int year = cin.nextInt();
                     System.out.print("Month: ");
                     int month = cin.nextInt();
                     System.out.print("Day: ");
                     int day = cin.nextInt();
-                    studentService.add(name, LocalDate.of(year, month, day));
+                    studentService.add(first_name,last_name,LocalDate.of(year, month, day));
                     break;
                 }
 
@@ -145,18 +149,22 @@ public class Main {
                 case 9: {
                     System.out.print("Teacher's id: ");
                     int id = cin.nextInt();
-                    System.out.print("New name: ");
-                    String name = cin.next();
-                    teacherService.update(id, name);
+                    System.out.print("New first name: ");
+                    String first_name = cin.next();
+                    System.out.print("New last name: ");
+                    String last_name = cin.next();
+                    teacherService.update(id, first_name,last_name);
                     break;
                 }
 
                 case 10: {
                     System.out.print("Student's id: ");
                     int id = cin.nextInt();
-                    System.out.print("New name: ");
-                    String name = cin.next();
-                    studentService.update(id, name);
+                    System.out.print("New first name: ");
+                    String first_name = cin.next();
+                    System.out.print("New last name: ");
+                    String last_name = cin.next();
+                    studentService.update(id, first_name,last_name);
                     break;
                 }
 

@@ -35,7 +35,8 @@ public class TeacherMemoryRepository implements TeacherRepository {
         int i = 0;
         while (i < repo.size()) {
             if (repo.get(i).getId() == teacher.getId()) {
-                repo.get(i).setName(teacher.getName());
+                repo.get(i).setFirst_name(teacher.getFirst_name());
+                repo.get(i).setLast_name(teacher.getLast_name());
                 repo.get(i).setBirthday(teacher.getBirthday());
                 break;
             }

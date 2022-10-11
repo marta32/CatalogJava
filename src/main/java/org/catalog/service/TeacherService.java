@@ -13,8 +13,8 @@ public class TeacherService {
         this.repo = repo;
     }
 
-    public void add(String name, LocalDate birthday) {
-        Teacher teacher = new Teacher(name, birthday);
+    public void add(String first_name, String last_name, LocalDate birthday) {
+        Teacher teacher = new Teacher(first_name,last_name, birthday);
         TeacherValidator teacherValidator =new TeacherValidator();
         teacherValidator.validate(teacher);
         repo.add(teacher);
@@ -30,9 +30,10 @@ public class TeacherService {
         repo.delete(id);
     }
 
-    public void update(int id, String name) {
+    public void update(int id, String first_name, String last_name) {
         Teacher teacher = repo.readById(id);
-        teacher.setName(name);
+        teacher.setFirst_name (first_name);
+        teacher.setLast_name (last_name);
         repo.update(teacher);
     }
 
@@ -41,6 +42,5 @@ public class TeacherService {
         teacher.setBirthday(birthday);
         repo.update(teacher);
     }
-
 
 }

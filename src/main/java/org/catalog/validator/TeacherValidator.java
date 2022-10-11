@@ -10,20 +10,30 @@ public class TeacherValidator {
     }
 
     public void validate(Teacher teacher) {
-        if (teacher.getName() == null || teacher.getName().isEmpty()) {
-            throw new InvalidNameException("Name can not be empty!");
+        if (teacher.getFirst_name() == null || teacher.getFirst_name().isEmpty()) {
+            throw new InvalidNameException("First name can not be empty!");
         }
-        if (!isAlpha(teacher.getName())) {
-            throw new InvalidNameException("Name can not contain another characters than letters!");
+        if (teacher.getLast_name() == null || teacher.getLast_name().isEmpty()) {
+            throw new InvalidNameException("Last name can not be empty!");
         }
-        char c = teacher.getName().charAt(0);
-        if (Character.isLowerCase(c)) {
-            throw new InvalidNameException("Name must to begin with capital letter!");
+        if (!isAlpha(teacher.getFirst_name())) {
+            throw new InvalidNameException("First name can not contain another characters than letters!");
+        }
+        if (!isAlpha(teacher.getLast_name())) {
+            throw new InvalidNameException("Last name can not contain another characters than letters!");
+        }
+        char c1 = teacher.getFirst_name().charAt(0);
+        if (Character.isLowerCase(c1)) {
+            throw new InvalidNameException("First name must to begin with capital letter!");
+        }
+        char c2 = teacher.getLast_name().charAt(0);
+        if (Character.isLowerCase(c2)) {
+            throw new InvalidNameException("Last name must to begin with capital letter!");
         }
         if (teacher.getBirthday() == null) {
             throw new InvalidDateException("Birthday can not be empty!");
         }
-        if (teacher.getBirthday().getYear() < 1995) {
+        if (teacher.getBirthday().getYear() < 1950) {
             throw new InvalidDateException("Birthday can not be before 1995!");
         }
     }

@@ -40,7 +40,8 @@ public class StudentMemoryRepository implements StudentRepository {
         int i = 0;
         while (i < repo.size()) {
             if (repo.get(i).getId() == student.getId()){
-                repo.get(i).setName(student.getName());
+                repo.get(i).setFirst_name(student.getFirst_name());
+                repo.get(i).setLast_name(student.getLast_name());
                 repo.get(i).setBirthday(student.getBirthday());
                 break;
             }

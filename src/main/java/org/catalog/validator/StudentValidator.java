@@ -10,15 +10,25 @@ public class StudentValidator {
     }
 
     public void validate(Student student) {
-        if (student.getName() == null || student.getName().isEmpty()) {
-            throw new InvalidNameException("Name can not be empty!");
+        if (student.getFirst_name() == null || student.getFirst_name().isEmpty()) {
+            throw new InvalidNameException("First name can not be empty!");
         }
-        if (!isAlpha(student.getName())) {
-            throw new InvalidNameException("Name can not contain another characters than letters!");
+        if (student.getLast_name() == null || student.getLast_name().isEmpty()) {
+            throw new InvalidNameException("Last name can not be empty!");
         }
-        char c = student.getName().charAt(0);
-        if (Character.isLowerCase(c)) {
-            throw new InvalidNameException("Name must to begin with capital letter!");
+        if (!isAlpha(student.getFirst_name())) {
+            throw new InvalidNameException("First name can not contain another characters than letters!");
+        }
+        if (!isAlpha(student.getLast_name())) {
+            throw new InvalidNameException("Last name can not contain another characters than letters!");
+        }
+        char c1 = student.getFirst_name().charAt(0);
+        if (Character.isLowerCase(c1)) {
+            throw new InvalidNameException("First name must to begin with capital letter!");
+        }
+        char c2 = student.getLast_name().charAt(0);
+        if (Character.isLowerCase(c2)) {
+            throw new InvalidNameException("Last name must to begin with capital letter!");
         }
         if (student.getBirthday() == null) {
             throw new InvalidDateException("Birthday can not be empty!");

@@ -13,8 +13,8 @@ public class StudentService {
         this.repo = repo;
     }
 
-    public void add(String name, LocalDate birthday) {
-        Student student = new Student(name, birthday);
+    public void add(String first_name, String last_name,  LocalDate birthday) {
+        Student student = new Student(first_name, last_name, birthday);
         StudentValidator studentValidator = new StudentValidator();
         studentValidator.validate(student);
         repo.add(student);
@@ -24,9 +24,9 @@ public class StudentService {
         repo.delete(id);
     }
 
-    public void update(int id, String name) {
+    public void update(int id, String first_name, String last_name) {
         Student student = repo.readById(id);
-        student.setName(name);
+        student.setFirst_name(first_name);
         repo.update(student);
     }
 
