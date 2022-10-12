@@ -5,6 +5,10 @@ import org.catalog.repository.GradeRepository;
 import org.catalog.repository.StudentRepository;
 import org.catalog.repository.SubjectRepository;
 import org.catalog.repository.TeacherRepository;
+import org.catalog.repository.datebase.GradeDbRepository;
+import org.catalog.repository.datebase.StudentDbRepository;
+import org.catalog.repository.datebase.SubjectDbRepository;
+import org.catalog.repository.datebase.TeacherDbRepository;
 import org.catalog.repository.file.GradeFileRepository;
 import org.catalog.repository.file.StudentFileRepository;
 import org.catalog.repository.file.SubjectFileRepository;
@@ -18,17 +22,17 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
-    private static StudentRepository studentRepository = new StudentFileRepository();
+    private static StudentRepository studentRepository = new StudentDbRepository();
     private static StudentService studentService = new StudentService(studentRepository);
 
-    private static TeacherRepository teacherRepository = new TeacherFileRepository();
+    private static TeacherRepository teacherRepository = new TeacherDbRepository();
     private static TeacherService teacherService = new TeacherService(teacherRepository);
 
-    private static SubjectRepository subjectRepository = new SubjectFileRepository();
-    private static SubjectService subjectService = new SubjectService(subjectRepository,teacherRepository);
+    private static SubjectRepository subjectRepository = new SubjectDbRepository();
+    private static SubjectService subjectService = new SubjectService(subjectRepository, teacherRepository);
 
-    private static GradeRepository gradeRepository = new GradeFileRepository();
-    private static GradeService gradeService = new GradeService(gradeRepository,studentRepository,subjectRepository);
+    private static GradeRepository gradeRepository = new GradeDbRepository();
+    private static GradeService gradeService = new GradeService(gradeRepository, studentRepository, subjectRepository);
 
     public static void menu() {
         System.out.println("========= MENU =========");
@@ -77,7 +81,7 @@ public class Main {
                     int month = cin.nextInt();
                     System.out.print("Day: ");
                     int day = cin.nextInt();
-                    teacherService.add(first_name,last_name, LocalDate.of(year, month, day));
+                    teacherService.add(first_name, last_name, LocalDate.of(year, month, day));
                     break;
                 }
 
@@ -93,7 +97,7 @@ public class Main {
                     int month = cin.nextInt();
                     System.out.print("Day: ");
                     int day = cin.nextInt();
-                    studentService.add(first_name,last_name,LocalDate.of(year, month, day));
+                    studentService.add(first_name, last_name, LocalDate.of(year, month, day));
                     break;
                 }
 
@@ -153,7 +157,7 @@ public class Main {
                     String first_name = cin.next();
                     System.out.print("New last name: ");
                     String last_name = cin.next();
-                    teacherService.update(id, first_name,last_name);
+                    teacherService.update(id, first_name, last_name);
                     break;
                 }
 
@@ -164,7 +168,7 @@ public class Main {
                     String first_name = cin.next();
                     System.out.print("New last name: ");
                     String last_name = cin.next();
-                    studentService.update(id, first_name,last_name);
+                    studentService.update(id, first_name, last_name);
                     break;
                 }
 
@@ -257,7 +261,7 @@ public class Main {
                 }
             }
         } catch (InvalidNameException | InvalidDateException | InvalidMarkException |
-                 InvalidStudentIdException | InvalidTeacherIdException |InvalidSubjectIdException exception) {
+                 InvalidStudentIdException | InvalidTeacherIdException | InvalidSubjectIdException exception) {
             System.out.println(exception.getMessage());
         }
         if (op != 0) {
@@ -266,7 +270,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         menu();
         options();
 
