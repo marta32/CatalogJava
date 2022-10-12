@@ -33,7 +33,7 @@ public class SubjectDbRepository implements SubjectRepository {
     @Override
     public void delete(int id) {
         try (Statement stmt = connection.createStatement()) {
-            String sql = " UPDATE grades " + " SET subject_id = " + null + ";"
+            String sql = " UPDATE grades " + " SET subject_id = " + null + "WHERE subject_id = " + id + ";"
                     + " DELETE FROM subjects " + "WHERE subject_id = " + id;
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class SubjectDbRepository implements SubjectRepository {
     public List<Subject> read() {
         List<Subject> subjects = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
-            String sql = " SELECT * FROM subjects s JOIN teachers t ON t.teacher_id = s.teacher_id";
+            String sql = " SELECT * FROM subjects s JOIN teachers t ON s.teacher_id = t.teacher_id";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("subject_id");

@@ -35,7 +35,7 @@ public class StudentDbRepository implements StudentRepository {
     public void delete(int id) {
         try (Statement stmt = connection.createStatement()) {
             String sql = " UPDATE grades "
-                       + " SET student_id = "+ null +";"
+                       + " SET student_id = "+ null + " WHERE student_id = " + id + ";"
                        + " DELETE FROM students " + " WHERE student_id = " + id;
             stmt.executeUpdate(sql);
         } catch (SQLException e) {

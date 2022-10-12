@@ -35,7 +35,7 @@ public class TeacherDbRepository implements TeacherRepository {
     @Override
     public void delete(int id) {
         try (Statement stmt = connection.createStatement()) {
-            String sql = " UPDATE subjects " + " SET teacher_id = " + null + ";"
+            String sql = " UPDATE subjects " + " SET teacher_id = " + null + " WHERE teacher_id = "+ id + ";"
                     + " DELETE FROM teachers WHERE teacher_id = " + id;
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
