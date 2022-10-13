@@ -1,4 +1,4 @@
-package org.catalog.repository.datebase;
+package org.catalog.repository.database;
 
 import org.catalog.model.Student;
 import org.catalog.repository.StudentRepository;
@@ -34,9 +34,9 @@ public class StudentDbRepository implements StudentRepository {
     @Override
     public void delete(int id) {
         try (Statement stmt = connection.createStatement()) {
-            String sql = " UPDATE grades "
-                       + " SET student_id = "+ null + " WHERE student_id = " + id + ";"
-                       + " DELETE FROM students " + " WHERE student_id = " + id;
+            String sql = "UPDATE grades "
+                    + "SET student_id = " + null + " WHERE student_id = " + id + "; "
+                    + "DELETE FROM students " + "WHERE student_id = " + id;
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -49,7 +49,7 @@ public class StudentDbRepository implements StudentRepository {
             String sql = "UPDATE students "
                     + "SET first_name = '" + student.getFirst_name() + "', last_name = '" + student.getLast_name()
                     + "', date_of_birth = '" + student.getBirthday() + "'"
-                    + "WHERE student_id = " + student.getId();
+                    + " WHERE student_id = " + student.getId();
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -59,15 +59,15 @@ public class StudentDbRepository implements StudentRepository {
     @Override
     public List<Student> read() {
         List<Student> students = new ArrayList<>();
-        try(Statement stmt = connection.createStatement()) {
-            String sql = " SELECT * FROM students s";
+        try (Statement stmt = connection.createStatement()) {
+            String sql = "SELECT * FROM students s";
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("student_id");
                 String first_name = rs.getString("first_name");
                 String last_name = rs.getString("last_name");
                 LocalDate date_of_birth = rs.getDate("date_of_birth").toLocalDate();
-                Student student = new Student(id,first_name,last_name,date_of_birth);
+                Student student = new Student(id, first_name, last_name, date_of_birth);
                 students.add(student);
             }
             return students;
@@ -78,11 +78,18 @@ public class StudentDbRepository implements StudentRepository {
 
     @Override
     public Student readById(int id) {
-        List<Student> students = read();
-        for (Student s : students) {
-            if (s.getId() == id) {
-                return s;
+        try (Statement stmt = connection.createStatement()) {
+            String sql = "SELECT * FROM students WHERE student_id = " + id;
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int student_id = rs.getInt("student_id");
+                String first_name = rs.getString("first_name");
+                String last_name = rs.getString("last_name");
+                LocalDate date_of_birth = rs.getDate("date_of_birth").toLocalDate();
+                return new Student(student_id, first_name, last_name, date_of_birth);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }

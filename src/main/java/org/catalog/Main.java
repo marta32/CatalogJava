@@ -5,14 +5,10 @@ import org.catalog.repository.GradeRepository;
 import org.catalog.repository.StudentRepository;
 import org.catalog.repository.SubjectRepository;
 import org.catalog.repository.TeacherRepository;
-import org.catalog.repository.datebase.GradeDbRepository;
-import org.catalog.repository.datebase.StudentDbRepository;
-import org.catalog.repository.datebase.SubjectDbRepository;
-import org.catalog.repository.datebase.TeacherDbRepository;
-import org.catalog.repository.file.GradeFileRepository;
-import org.catalog.repository.file.StudentFileRepository;
-import org.catalog.repository.file.SubjectFileRepository;
-import org.catalog.repository.file.TeacherFileRepository;
+import org.catalog.repository.database.GradeDbRepository;
+import org.catalog.repository.database.StudentDbRepository;
+import org.catalog.repository.database.SubjectDbRepository;
+import org.catalog.repository.database.TeacherDbRepository;
 import org.catalog.service.GradeService;
 import org.catalog.service.StudentService;
 import org.catalog.service.SubjectService;
@@ -23,15 +19,12 @@ import java.util.Scanner;
 
 public class Main {
     private static StudentRepository studentRepository = new StudentDbRepository();
-    private static StudentService studentService = new StudentService(studentRepository);
-
     private static TeacherRepository teacherRepository = new TeacherDbRepository();
-    private static TeacherService teacherService = new TeacherService(teacherRepository);
-
     private static SubjectRepository subjectRepository = new SubjectDbRepository();
-    private static SubjectService subjectService = new SubjectService(subjectRepository, teacherRepository);
-
     private static GradeRepository gradeRepository = new GradeDbRepository();
+    private static StudentService studentService = new StudentService(studentRepository, gradeRepository);
+    private static TeacherService teacherService = new TeacherService(teacherRepository);
+    private static SubjectService subjectService = new SubjectService(subjectRepository, teacherRepository);
     private static GradeService gradeService = new GradeService(gradeRepository, studentRepository, subjectRepository);
 
     public static void menu() {
@@ -57,6 +50,7 @@ public class Main {
         System.out.println("Tap 18 - Display students");
         System.out.println("Tap 19 - Display subjects");
         System.out.println("Tap 20 - Display grades");
+        System.out.println("Tap 21 - Display top three students");
     }
 
     public static void options() {
@@ -257,6 +251,11 @@ public class Main {
                 case 20: {
                     System.out.println("===== GRADE'S LIST =====");
                     gradeService.display();
+                    break;
+                }
+                case 21: {
+                    System.out.println("===== Top three students =====");
+                    studentService.displayTopThree();
                     break;
                 }
             }

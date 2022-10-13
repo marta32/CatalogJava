@@ -1,4 +1,4 @@
-package org.catalog.repository.datebase;
+package org.catalog.repository.database;
 
 import org.catalog.model.Subject;
 import org.catalog.repository.SubjectRepository;
@@ -74,11 +74,17 @@ public class SubjectDbRepository implements SubjectRepository {
 
     @Override
     public Subject readById(int id) {
-        List<Subject> subjects = read();
-        for (Subject s : subjects) {
-            if (s.getId() == id) {
-                return s;
+        try (Statement stmt = connection.createStatement()) {
+            String sql = " SELECT * FROM subjects WHERE subject_id = "+id;
+            ResultSet rs = stmt.executeQuery(sql);
+            if( rs.next()) {
+                int subject_id = rs.getInt("subject_id");
+                String name = rs.getString("name");
+                int idt = rs.getInt("teacher_id");
+                return new Subject(id, name, idt);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }

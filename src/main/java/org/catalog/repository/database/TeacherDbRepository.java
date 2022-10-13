@@ -1,4 +1,4 @@
-package org.catalog.repository.datebase;
+package org.catalog.repository.database;
 
 import org.catalog.model.Teacher;
 import org.catalog.repository.TeacherRepository;
@@ -35,7 +35,7 @@ public class TeacherDbRepository implements TeacherRepository {
     @Override
     public void delete(int id) {
         try (Statement stmt = connection.createStatement()) {
-            String sql = " UPDATE subjects " + " SET teacher_id = " + null + " WHERE teacher_id = "+ id + ";"
+            String sql = " UPDATE subjects " + " SET teacher_id = " + null + " WHERE teacher_id = " + id + ";"
                     + " DELETE FROM teachers WHERE teacher_id = " + id;
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -78,11 +78,18 @@ public class TeacherDbRepository implements TeacherRepository {
 
     @Override
     public Teacher readById(int id) {
-        List<Teacher> teachers = read();
-        for (Teacher t : teachers) {
-            if (t.getId() == id) {
-                return t;
+        try (Statement stmt = connection.createStatement()) {
+            String sql = "SELECT * FROM teachers WHERE teacher_id = " + id;
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int teacher_id = rs.getInt("teacher_id");
+                String first_name = rs.getString("first_name");
+                String last_name = rs.getString("last_name");
+                LocalDate date_of_birth = rs.getDate("date_of_birth").toLocalDate();
+                return new Teacher(teacher_id, first_name, last_name, date_of_birth);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }

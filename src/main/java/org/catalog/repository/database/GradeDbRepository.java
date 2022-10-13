@@ -1,4 +1,4 @@
-package org.catalog.repository.datebase;
+package org.catalog.repository.database;
 
 import org.catalog.model.Grade;
 import org.catalog.repository.GradeRepository;
@@ -49,7 +49,7 @@ public class GradeDbRepository implements GradeRepository {
                     + "SET student_id = '" + grade.getIdStudent() + "', subject_id = '" + grade.getIdSubject()
                     + "', mark = " + grade.getMark()
                     + ", date_of_mark= '" + grade.getDateMark() + "'"
-                    + "WHERE grade_id = " + grade.getId();
+                    + " WHERE grade_id = " + grade.getId();
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -79,11 +79,19 @@ public class GradeDbRepository implements GradeRepository {
 
     @Override
     public Grade readById(int id) {
-        List<Grade> grades = read();
-        for (Grade s : grades) {
-            if (s.getId() == id) {
-                return s;
+        try (Statement stmt = connection.createStatement()) {
+            String sql = "SELECT * FROM grades WHERE grade_id = " + id;
+            ResultSet rs = stmt.executeQuery(sql);
+            if( rs.next()) {
+                int id0 = rs.getInt("grade_id");
+                int id1 = rs.getInt("student_id");
+                int id2 = rs.getInt("subject_id");
+                int mark = rs.getInt("mark");
+                LocalDate date_of_mark = rs.getDate("date_of_mark").toLocalDate();
+                return new Grade(id0, id1, id2, mark, date_of_mark);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
