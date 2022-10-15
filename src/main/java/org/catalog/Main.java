@@ -51,6 +51,7 @@ public class Main {
         System.out.println("Tap 19 - Display subjects");
         System.out.println("Tap 20 - Display grades");
         System.out.println("Tap 21 - Display top three students");
+        System.out.println("Tap 22 - Display all the students born in summer");
     }
 
     public static void options() {
@@ -256,6 +257,11 @@ public class Main {
                 case 21: {
                     System.out.println("===== Top three students =====");
                     studentService.displayTopThree();
+                    break;
+                }
+                case 22:{
+                    System.out.println("===== Students born in summer =====");
+                    studentService.displaySummerBirthday();
                     break;
                 }
             }

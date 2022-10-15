@@ -7,6 +7,7 @@ import org.catalog.repository.StudentRepository;
 import org.catalog.validator.StudentValidator;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,6 +57,7 @@ public class StudentService {
                 .collect(Collectors.groupingBy(Grade::getIdStudent, Collectors.averagingDouble(Grade::getMark)))
                 .entrySet().stream().sorted(Map.Entry.comparingByValue()).limit(3)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
         for (Map.Entry<Integer, Double> entry : studentGrades.entrySet()) {
             Student student = repo.readById(entry.getKey());
             System.out.println("First name: " + student.getFirst_name() + ", last name: " + student.getLast_name() +
@@ -63,8 +65,7 @@ public class StudentService {
         }
     }
 
-//    public void displaySummerBirthday(){
-//        repo.read().stream().filter(s->s.getBirthday(),)
-//
-//    }
+    public void displaySummerBirthday(){
+        repo.read().stream().filter(e->e.getBirthday().getMonthValue()==5 ||e.getBirthday().getMonthValue()==6||e.getBirthday().getMonthValue()==7).forEach(e->System.out.println(e));
+    }
 }
